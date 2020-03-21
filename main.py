@@ -1,6 +1,7 @@
+import sys
+sys.stdout.write('Ronaldinho')
 import numpy as np
 import random
-from random import randrange
 
 class game:
     def __init__(self,players_qty):
@@ -17,10 +18,31 @@ class game:
             players.append(characters(bool(alignment_array[i]),i+1))
         self.char = players
        
-    def quests(self):
+    def init_quests(self):
         game_quests = quests(self.players_qty,self.char)
-        for q in range(5):           
-            self.game_end,self.game_winner = game_quests.quest_turns(q)
+        self.quests_results = []
+        for q in range(5):
+            print('Quest number: ', (q + 1))
+            self.game_status,self.quest_group = game_quests.quest_turns(q)            
+            if not(self.game_status[0]):
+                self.quests_results.append(game_quests.quest_votes(self.quest_group))
+                print('Quest Result: ',self.quests_results[q])
+                
+            else:
+                pass
+            
+            if sum(self.quests_results) > 2:
+                self.game_status = [True,True]
+            
+            elif (sum(self.quests_results) < (q - 2)):
+                self.game_status = [True,False]
+            
+            if self.game_status[0]:
+                print('Jogo acabou no turno: ',q, ', vencedores: ',self.game_status[1])
+                break
+            
+            else:
+                pass
 
 class characters:
     def __init__(self,align,player,lead = False):    
@@ -28,7 +50,8 @@ class characters:
         self.leader = lead
         self.player_number = player
         self.team_vote = False
-
+        self.quest_vote = True
+ 
 class quests:
     def __init__(self,players,characters): 
         self.char = characters
@@ -41,11 +64,29 @@ class quests:
         self.quest_number = q_number + 1
         self.team_size = int(self.quests_details[self.quest_number][self.quests_col])
         for t in range(5):
-            turn = turn_actions(t,self.players_qty,self.char)
-            self.quest_turn = turn.turn_number
+            end = False
+            act = turn_actions(t,self.players_qty,self.char)
+            self.quest_turn = act.turn_number
+            group = act.build_team(self.team_size)
+            ap = act.turn_voting(group)
+            
+            if ap:  
+                break
+            
+            else: 
+                end = True
+        
+        return [end, False], group
     
-        end = True
-        return end, False
+    def quest_votes(self,quest_group):
+        quest_success = True
+        for c in quest_group:
+            self.char[c].quest_vote = bool(random.getrandbits(1))            
+            if self.char[c].alignment:
+                self.char[c].quest_vote = True
+            quest_success = (quest_success and self.char[c].quest_vote)
+
+        return quest_success
 
 class turn_actions:
     def __init__(self,t,players,characters):
@@ -67,19 +108,24 @@ class turn_actions:
     def build_team(self,size):
         group_players = random.sample(range(6), size)
         
+        return  group_players
+        
         
     def turn_voting(self,team):
+        print('Voting')
         votes = []
         for j in range(self.players_qty):
+            self.char[j].team_vote = bool(random.getrandbits(1)) 
             votes.append(self.char[j].team_vote)
-        
-        if np.sum(votes) >= self.players_qty:
+        if (np.sum(votes) >= self.players_qty/2):
             team_approval = True
         else:
             team_approval = False
-        
-        return team_approval      
+            
+        print('Approved: ',team_approval)
+        return team_approval    
+ 
 
 total_players = 6 
 jogo = game(total_players)
-jogo.quests()      
+jogo.init_quests()    
