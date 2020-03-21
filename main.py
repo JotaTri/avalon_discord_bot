@@ -1,4 +1,3 @@
-import sys
 import numpy as np
 import random
 
@@ -14,9 +13,12 @@ class game:
         alignment_array[:self.bad_qty] = 0
         np.random.shuffle(alignment_array)
         for i in range(total_players):
-            players.append(characters(bool(alignment_array[i]),i+1))
+            players.append(characters(bool(alignment_array[i]),i+1))     
+        roles = random.sample(range(self.players_qty), 2)
+        players[roles[0]].assassin = True
+        players[roles[1]].merlin = True
         self.char = players     
-       
+        
     def init_quests(self):
         game_quests = quests(self.players_qty,self.char)
         self.quests_results = []
@@ -37,7 +39,7 @@ class game:
                 self.game_status = [True,False]
             
             if self.game_status[0]:
-                print('Jogo acabou no turno: ',q, ', vencedores: ',self.game_status[1])
+                print('Jogo acabou no turno: ',q+1, ', vencedores: ',self.game_status[1])
                 break
             
             else:
@@ -50,6 +52,8 @@ class characters:
         self.player_number = player
         self.team_vote = False
         self.quest_vote = True
+        self.assassin = False
+        self.merlin = False
  
 class quests:
     def __init__(self,players,characters): 
@@ -105,7 +109,7 @@ class turn_actions:
                     break
     
     def build_team(self,size):
-        group_players = random.sample(range(6), size)
+        group_players = random.sample(range(self.players_qty), size)
         
         return  group_players
         
