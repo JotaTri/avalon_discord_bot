@@ -1,5 +1,4 @@
 import sys
-sys.stdout.write('Ronaldinho')
 import numpy as np
 import random
 
@@ -16,7 +15,7 @@ class game:
         np.random.shuffle(alignment_array)
         for i in range(total_players):
             players.append(characters(bool(alignment_array[i]),i+1))
-        self.char = players
+        self.char = players     
        
     def init_quests(self):
         game_quests = quests(self.players_qty,self.char)
