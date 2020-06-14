@@ -15,7 +15,7 @@ class game:
         alignment_array[:self.bad_qty] = 0
         np.random.shuffle(alignment_array)
         for i in range(self.players_qty):
-            players.append(characters(bool(alignment_array[i]),i+1,players_id[i],players_name[i]))     
+            players.append(characters(bool(alignment_array[i]),[i+1,players_id[i],players_name[i]]))     
         roles = random.sample(range(self.players_qty), 2)
         self.merlin_player = roles[0]
         self.assassin_player = roles[1]
