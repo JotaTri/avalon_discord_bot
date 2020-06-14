@@ -1,7 +1,8 @@
 import discord
 from discord.ext import commands
 from game import game
-'''
+
+"""
 Um dia isso vai ser a parte integrada com o discord
 TOKEN = ''
 
@@ -13,9 +14,9 @@ async def game(ctx):
     msg_start = 'Starting Avalon Game'
     await ctx.channel.send(msg_start)
     #client.run(TOKEN)
-'''
+"""
 
 qty = 5
-id_discord = ['1','2','3','4','5'] 
-name = ['arnaldo', 'bernaldo', 'cernaldo', 'dernaldo', 'ernaldo']
-game(qty,id_discord,name)
+id_discord = ["1", "2", "3", "4", "5"]
+name = ["arnaldo", "bernaldo", "cernaldo", "dernaldo", "ernaldo"]
+game(qty, id_discord, name)
