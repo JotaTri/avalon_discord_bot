@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from game import game
 
-TOKEN = 'NjkwOTgxOTgzNTA5MjgyOTM2.XnZXlA.8fKAxVq51-JQJSQ2RYYcC6I9dLE'
+TOKEN = ''
 
 client = commands.Bot(command_prefix= '/')
 
