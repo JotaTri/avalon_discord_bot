@@ -3,7 +3,7 @@ from discord.ext import commands
 from game import game
 '''
 Um dia isso vai ser a parte integrada com o discord
-TOKEN = 'NjkwOTgxOTgzNTA5MjgyOTM2.XuVrxQ.OORDtPhJSUa8n_MkOKo2HCTabBM'
+TOKEN = ''
 
 client = commands.Bot(command_prefix= '/')
 
