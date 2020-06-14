@@ -5,7 +5,14 @@ from quests import quests
 
 
 class game:
-    def __init__(self, players_qty, players_id, players_name):
+    def __init__(self):
+        self.players_info = {}
+    
+    def join_game(self,info):
+        self.players_info["discord_id"] = info["discord_id"]
+        self.players_info["name"] = info["discord_name"]
+    
+    def shuffle_players(self, players_qty, players_id, players_name):
         self.players_qty = players_qty
         self.player_distribution = np.array(
             [[5, 6, 7, 8, 9, 10], [3, 4, 4, 5, 6, 6], [2, 2, 3, 3, 3, 4]]
