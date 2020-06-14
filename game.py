@@ -9,27 +9,27 @@ class game:
         self.players_info = {}
         self.players_info["discord_id"] = []
         self.players_info["name"] = []
-    
-    def join_game(self,info):
+
+    def join_game(self, info):
         self.players_info["discord_id"].append(info["discord_id"])
         self.players_info["name"].append(info["discord_name"])
-    
+
     def shuffle_players(self):
-        self.players_qty = len(players_info["discord_id"])
+        self.players_qty = len(self.players_info["discord_id"])
         self.player_distribution = np.array(
             [[5, 6, 7, 8, 9, 10], [3, 4, 4, 5, 6, 6], [2, 2, 3, 3, 3, 4]]
         )
-        player_col = np.where(self.player_distribution[0] == players_qty)
+        player_col = np.where(self.player_distribution[0] == self.players_qty)
         self.good_qty = int(self.player_distribution[1][player_col])
         self.bad_qty = self.good_qty = int(self.player_distribution[2][player_col])
         players = []
-        alignment_array = np.ones(players_qty)
+        alignment_array = np.ones(self.players_qty)
         alignment_array[: self.bad_qty] = 0
         np.random.shuffle(alignment_array)
         for i in range(self.players_qty):
             players.append(
                 characters(
-                    bool(alignment_array[i]), [i + 1, players_info["discord_id"][i], players_info["name"][i]]
+                    bool(alignment_array[i]), [i + 1, self.players_info["discord_id"][i], self.players_info["name"][i]]
                 )
             )
         roles = random.sample(range(self.players_qty), 2)
@@ -40,11 +40,11 @@ class game:
         self.char = players
         print("O Merlin é o jogador: ", self.char[roles[1]].player_number)
         print("O Assassino é o jogador: ", self.char[roles[0]].player_number)
-    
-    def get_character(self,discord_id):
-        for index in self.players_qty:
-            self.char[index].player_id ==  discord_id:
-                return self.char[index]    
+
+    def get_character(self, discord_id):
+        for character in self.char:
+            if (character.player_id == discord_id):
+                return character
 
         return "Player does not exist"
 
