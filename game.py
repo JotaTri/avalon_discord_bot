@@ -29,7 +29,7 @@ class game:
         for i in range(self.players_qty):
             players.append(
                 characters(
-                    bool(alignment_array[i]), [i + 1, players_id[i], players_name[i]]
+                    bool(alignment_array[i]), [i + 1, players_info["discord_id"][i], players_info["name"][i]]
                 )
             )
         roles = random.sample(range(self.players_qty), 2)
@@ -40,6 +40,13 @@ class game:
         self.char = players
         print("O Merlin é o jogador: ", self.char[roles[1]].player_number)
         print("O Assassino é o jogador: ", self.char[roles[0]].player_number)
+    
+    def get_character(self,discord_id):
+        for index in self.players_qty:
+            self.char[index].player_id ==  discord_id:
+                return self.char[index]    
+
+        return "Player does not exist"
 
     def init_quests(self):
         game_quests = quests(self.players_qty, self.char)
