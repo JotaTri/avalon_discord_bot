@@ -6,16 +6,18 @@ from quests import quests
 
 class Game:
     def __init__(self):
-        self.players_info = {}
+        self.players_info = []
         self.players_info["discord_id"] = []
         self.players_info["name"] = []
 
     def join_game(self, info):
-        self.players_info["discord_id"].append(info["discord_id"])
-        self.players_info["name"].append(info["discord_name"])
+        self.players_info.append(
+            "discord_id": info["discord_id"]
+            "discord_name": info["discord_name"]
+        )
 
     def shuffle_players(self):
-        self.players_qty = len(self.players_info["discord_id"])
+        self.players_qty = len(self.players_info)
         self.player_distribution = np.array(
             [list(range(1, 11)), [1, 1, 2, 3, 3, 4, 4, 5, 6, 6], [0, 1, 1, 1, 2, 2, 3, 3, 3, 4]]
         )
@@ -36,8 +38,8 @@ class Game:
                     bool(alignment_array[i]),
                     {
                         'number': i + 1,
-                        'discord_id': self.players_info["discord_id"][i],
-                        'name': self.players_info["name"][i]
+                        'discord_id': self.players_info[i]["discord_id"],
+                        'name': self.players_info[i]["name"]
                     }
                 )
             )
