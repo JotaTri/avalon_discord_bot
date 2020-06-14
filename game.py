@@ -15,11 +15,15 @@ class game:
         alignment_array[:self.bad_qty] = 0
         np.random.shuffle(alignment_array)
         for i in range(self.players_qty):
-            players.append(characters(bool(alignment_array[i]),i+1))     
+            players.append(characters(bool(alignment_array[i]),i+1,players_id[i],players_name[i]))     
         roles = random.sample(range(self.players_qty), 2)
+        self.merlin_player = roles[0]
+        self.assassin_player = roles[1]
         players[roles[0]].assassin = True
         players[roles[1]].merlin = True
-        self.char = players     
+        self.char = players
+        print("O Merlin é o jogador: ", self.char[roles[1]].player_number) 
+        print("O Assassino é o jogador: ", self.char[roles[0]].player_number)     
         
     def init_quests(self):
         game_quests = quests(self.players_qty,self.char)
@@ -36,7 +40,11 @@ class game:
             
             if sum(self.quests_results) > 2:
                 self.game_status = [True,True]
-            
+                assassinated = int(self.char[self.assassin_player].assassinate(self.assassin_player,self.players_qty))
+                print('Jogador assassinado: ', str(assassinated))
+                if int(assassinated) == self.merlin_player:
+                    self.game_status = [True,False]
+           
             elif (sum(self.quests_results) < (q - 2)):
                 self.game_status = [True,False]
             

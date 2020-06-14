@@ -1,3 +1,4 @@
+import random
 class characters:
     def __init__(self,align,player,lead = False):    
         self.alignment = align
@@ -7,3 +8,8 @@ class characters:
         self.quest_vote = True
         self.assassin = False
         self.merlin = False
+
+    def assassinate(self,assassin,players_qty):
+        assassinated_player = random.sample(range(players_qty), 1)
+        
+        return assassinated_player
