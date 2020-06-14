@@ -14,6 +14,5 @@ class characters:
         self.merlin = False
 
     def assassinate(self, assassin, players_qty):
-        assassinated_player = random.sample(range(players_qty), 1)
-
+        assassinated_player = random.sample(range(players_qty), 1)[0]
         return assassinated_player

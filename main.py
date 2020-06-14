@@ -19,4 +19,5 @@ async def game(ctx):
 qty = 5
 id_discord = ["1", "2", "3", "4", "5"]
 name = ["arnaldo", "bernaldo", "cernaldo", "dernaldo", "ernaldo"]
-game(qty, id_discord, name)
+jogo = game(qty, id_discord, name)
+jogo.init_quests()
