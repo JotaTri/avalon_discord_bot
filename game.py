@@ -4,7 +4,7 @@ from characters import characters
 from quests import quests
 
 class game:
-    def __init__(self,players_qty):
+    def __init__(self,players_qty,players_id,players_name):
         self.players_qty = players_qty        
         self.player_distribution = np.array([[5,6,7,8,9,10],[3,4,4,5,6,6],[2,2,3,3,3,4]])
         player_col = np.where(self.player_distribution[0] == players_qty)
