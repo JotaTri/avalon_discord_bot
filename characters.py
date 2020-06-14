@@ -6,7 +6,7 @@ class Character:
         self.alignment = align
         self.leader = leader
         self.player_number = player_info['number']
-        self.player_id = player_info['dicord_id']
+        self.player_id = player_info['discord_id']
         self.player_name = player_info['name']
         self.team_vote = None
         self.quest_vote = None

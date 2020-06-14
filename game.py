@@ -1,10 +1,10 @@
 import numpy as np
 import random
-from characters import characters
+from characters import Character
 from quests import quests
 
 
-class game:
+class Game:
     def __init__(self):
         self.players_info = {}
         self.players_info["discord_id"] = []
@@ -17,9 +17,13 @@ class game:
     def shuffle_players(self):
         self.players_qty = len(self.players_info["discord_id"])
         self.player_distribution = np.array(
-            [[5, 6, 7, 8, 9, 10], [3, 4, 4, 5, 6, 6], [2, 2, 3, 3, 3, 4]]
+            [list(range(1, 11)), [1, 1, 2, 3, 3, 4, 4, 5, 6, 6], [0, 1, 1, 1, 2, 2, 3, 3, 3, 4]]
         )
-        player_col = np.where(self.player_distribution[0] == self.players_qty)
+        print(self.players_qty)
+        player_col = np.where(self.player_distribution[0] == self.players_qty)[0][0]
+        print(self.player_distribution)
+        print(player_col)
+        print(self.players_qty)
         self.good_qty = int(self.player_distribution[1][player_col])
         self.bad_qty = self.good_qty = int(self.player_distribution[2][player_col])
         players = []
@@ -28,8 +32,13 @@ class game:
         np.random.shuffle(alignment_array)
         for i in range(self.players_qty):
             players.append(
-                characters(
-                    bool(alignment_array[i]), [i + 1, self.players_info["discord_id"][i], self.players_info["name"][i]]
+                Character(
+                    bool(alignment_array[i]),
+                    {
+                        'number': i + 1,
+                        'discord_id': self.players_info["discord_id"][i],
+                        'name': self.players_info["name"][i]
+                    }
                 )
             )
         roles = random.sample(range(self.players_qty), 2)
