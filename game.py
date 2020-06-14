@@ -7,13 +7,13 @@ from quests import quests
 class Game:
     def __init__(self):
         self.players_info = []
-        self.players_info["discord_id"] = []
-        self.players_info["name"] = []
 
     def join_game(self, info):
         self.players_info.append(
-            "discord_id": info["discord_id"]
-            "discord_name": info["discord_name"]
+            {
+            "discord_id": info["discord_id"],
+            "name": info["discord_name"]
+            }
         )
 
     def shuffle_players(self):
